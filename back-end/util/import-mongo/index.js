@@ -1,50 +1,52 @@
 require('dotenv').config();
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb'); // Modern destructuring
 const fs = require('fs');
 
-// MongoDB connection URL with authentication options
-let url = `${process.env.MONGO_URL}`;
-let filename = `${__dirname}/footprint.json`;
+// Environment variables
+const url = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/footprintdb';
+const filename = `${__dirname}/footprint.json`;
 const dbName = 'footprintdb';
 const collectionName = 'footprints';
 
-// notice you have to load the array of footprints into the data object
-const data = JSON.parse(fs.readFileSync(filename, 'utf8')).docs;
-
-// connect to database and insert data into the collection
 async function loadData() {
     const client = new MongoClient(url);
 
     try {
-        // Connect to the MongoDB client
         await client.connect();
-        console.log("Connected successfully to server");
+        console.log("Connected successfully to MongoDB");
 
-        // database will be created if it does not exist
         const db = client.db(dbName);
-
-        // collection will be created if it does not exist
         const collection = db.collection(collectionName);
-        let cursor = await collection.find({});
-        let documents = await cursor.toArray();
 
-        if (documents.length == 0) {
-            // Insert data into the collection
-            const insertResult = await collection.insertMany(data);
-            console.log('Inserted documents:', insertResult.insertedCount);
+        // Optimization: Use countDocuments instead of loading all docs into memory
+        const count = await collection.countDocuments();
+
+        if (count === 0) {
+            // Read and parse the file
+            const rawData = JSON.parse(fs.readFileSync(filename, 'utf8'));
+
+            // Note: Using .docs because your specific JSON structure has a "docs" wrapper
+            const docsToInsert = rawData.docs;
+
+            if (docsToInsert && docsToInsert.length > 0) {
+                const insertResult = await collection.insertMany(docsToInsert);
+                console.log(`Successfully seeded ${insertResult.insertedCount} documents.`);
+            } else {
+                console.log("No documents found in the 'docs' array to insert.");
+            }
         } else {
-            console.log("Footprints already exists in DB")
+            console.log(`Database already contains ${count} documents. Skipping seed.`);
         }
     } catch (err) {
-        console.error(err);
+        console.error("Error during seeding:", err.message);
     } finally {
-        // Close the connection
         await client.close();
     }
 }
 
-loadData();
+// Only run if this file is executed directly (not when imported elsewhere)
+if (require.main === module) {
+    loadData();
+}
 
-module.exports = {
-    loadData,
-};
+module.exports = { loadData };
