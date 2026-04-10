@@ -13,8 +13,8 @@
 
 ### Frontend
 - **Framework**: React
-- **Styling**: Tailwind CSS, Bootstrap
-- **Icons**: Lucide React
+- **Styling**: Bootstrap
+- **Icons**: Font-Awesome, Bootsrap icons
 - **State Management**: React Hooks (useState, useEffect)
 - **HTTP Client**: Fetch API
 
