@@ -23,12 +23,22 @@ export default function ActivityLogger({ user, onLogAdded }) {
 
     const handleAdd = async (e) => {
         e.preventDefault();
+
+        // 1. Find the current activity object from your constants
         const activity = ACTIVITY_TYPES.find(a => a.id === selectedActivity);
-        if (!activity || !value) return;
+
+        // Safety check: stop if we can't find the activity or value is missing
+        if (!activity || !value) {
+            console.error("Missing activity or value");
+            return;
+        }
 
         const numValue = parseFloat(value);
-        const co2Calculated = numValue * activity.co2PerUnit;
 
+        // 2. Fix the floating point math (e.g., 11.20000000001 -> 11.2)
+        const co2Calculated = Math.round((numValue * activity.co2PerUnit) * 100) / 100;
+
+        // 3. Construct the payload to match exactly what your DB expects
         const payload = {
             userId: user.id,
             category: activity.category,
@@ -40,16 +50,17 @@ export default function ActivityLogger({ user, onLogAdded }) {
             timestamp: new Date().toISOString()
         };
 
+        console.log("Sending Payload:", payload);
+
         try {
             await api.logs.add(payload);
             setValue('');
             onLogAdded();
             fetchRecent();
         } catch (err) {
-            console.error("Logging failed", err);
+            console.error("Logging failed:", err);
         }
     };
-
     const currentActivity = ACTIVITY_TYPES.find(a => a.id === selectedActivity);
 
     return (
