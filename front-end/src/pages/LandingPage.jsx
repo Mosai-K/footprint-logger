@@ -119,7 +119,7 @@ export default function LandingPage({ onGetStarted }) {
     );
 }
 
-// Helper Component for Feature Cards
+//helper comp.
 function FeatureCard({ icon, title, text }) {
     return (
         <div className="col-md-4">

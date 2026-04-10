@@ -1,7 +1,7 @@
 const config = {
-    backendUrl: process.env.API_URL,
+    backendUrl: "http://localhost:3060/api",
     geminiKey: process.env.GEMINI_API_KEY
 };
 
 console.log(`backendUrl in config.js: ${config.backendUrl}`)
-export { config as urlConfig }
+export default config;
