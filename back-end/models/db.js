@@ -2,7 +2,7 @@ require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
 // Fallback to local if env is missing
-const url = process.env.MONGO_URL;
+const url = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/footprintdb";
 
 let dbInstance = null;
 const dbName = "footprintdb";
