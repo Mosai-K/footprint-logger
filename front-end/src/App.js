@@ -1,25 +1,47 @@
-import React, { useState } from 'react';
-import LandingPage from './pages/LandingPage.jsx'
-// import AuthPage from './pages/AuthPage'; // We will build this next
+import React, { useState, useEffect } from 'react';
+import LandingPage from './pages/LandingPage.jsx';
+import AuthPage from './pages/AuthPage.jsx';
 
 function App() {
-    // Use state to track if we are on landing or auth/dashboard
-    const [view, setView] = useState('landing');
+    const [user, setUser] = useState(null);
+    const [view, setView] = useState('landing'); // 'landing', 'auth', 'dashboard'
 
-    const handleGetStarted = () => {
-        console.log("Navigating to Auth...");
-        setView('auth');
+    // On mount, check if user is already logged in
+    useEffect(() => {
+        const savedUser = localStorage.getItem('ecotrack_user');
+        if (savedUser) {
+            setUser(JSON.parse(savedUser));
+            setView('dashboard');
+        }
+    }, []);
+
+    const handleLoginSuccess = (userData) => {
+        setUser(userData);
+        setView('dashboard');
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('ecotrack_user');
+        setUser(null);
+        setView('landing');
     };
 
     return (
         <div className="App">
-            {view === 'landing' ? (
-                <LandingPage onGetStarted={handleGetStarted} />
-            ) : (
+            {view === 'landing' && (
+                <LandingPage onGetStarted={() => setView('auth')} />
+            )}
+
+            {view === 'auth' && (
+                <AuthPage onLoginSuccess={handleLoginSuccess} />
+            )}
+
+            {view === 'dashboard' && (
                 <div className="container py-5 text-center">
-                    <h2 className="display-4">Login / Register Page Coming Next!</h2>
-                    <button className="btn btn-secondary mt-3" onClick={() => setView('landing')}>
-                        Back to Home
+                    <h2 className="display-5 fw-bold">Welcome, {user?.email}</h2>
+                    <p className="text-muted">Dashboard structure coming next!</p>
+                    <button className="btn btn-outline-danger mt-4" onClick={handleLogout}>
+                        Logout
                     </button>
                 </div>
             )}
