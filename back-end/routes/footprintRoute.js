@@ -46,17 +46,17 @@ router.get("/logs/:userId", async (req, res) => {
 // Add New Log
 router.post("/logs", async (req, res) => {
     try {
-        const { userId, activity, category, value, co2, date } = req.body;
+        const { userId, activityType, category, value, carbonImpact, date, unit } = req.body;
         const db = await connectToDatabase();
 
         const newLog = {
             userId,
             timestamp: date || new Date().toISOString(),
             category: category,
-            activityType: activity,
+            activityType: activityType,
             value: value,
-            unit: req.body.unit || "unit",
-            carbonImpact: co2
+            unit: unit,
+            carbonImpact: carbonImpact
         };
 
         const result = await db.collection("footprints").insertOne(newLog);
