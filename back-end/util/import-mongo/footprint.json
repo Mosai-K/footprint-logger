@@ -1,23 +1,64 @@
 {
     "docs": [
         {
-            "_id": {
-                "$oid": "689847055526030012345678"
-            },
-            "userId": "user123",
-            "date": {
-                "$date": "2024-01-15T00:00:00.000Z"
-            },
-            "transport": "car",
-            "distance": 10,
-            "co2e": 2.3,
-            "unit": "kgCO2e",
-            "createdAt": {
-                "$date": "2024-01-15T10:00:00.000Z"
-            },
-            "updatedAt": {
-                "$date": "2024-01-15T10:00:00.000Z"
-            }
+            "userId": "1",
+            "timestamp": "2026-04-10T10:00:00Z",
+            "category": "Transport",
+            "activityType": "Car",
+            "description": "Commute to work",
+            "value": 25,
+            "unit": "km",
+            "carbonImpact": 4.2
+        },
+        {
+            "userId": "2",
+            "timestamp": "2026-04-10T12:30:00Z",
+            "category": "Food",
+            "activityType": "Beef",
+            "description": "Steak lunch",
+            "value": 200,
+            "unit": "grams",
+            "carbonImpact": 5.4
+        },
+        {
+            "userId": "2",
+            "timestamp": "2026-04-10T14:00:00Z",
+            "category": "Energy",
+            "activityType": "Electricity",
+            "description": "Daily home usage",
+            "value": 12,
+            "unit": "kWh",
+            "carbonImpact": 10.8
+        },
+        {
+            "userId": "1",
+            "timestamp": "2026-04-11T08:00:00Z",
+            "category": "Transport",
+            "activityType": "Bus",
+            "description": "Trip to mall",
+            "value": 15,
+            "unit": "km",
+            "carbonImpact": 1.1
+        },
+        {
+            "userId": "3",
+            "timestamp": "2026-04-11T13:00:00Z",
+            "category": "Food",
+            "activityType": "Vegetarian",
+            "description": "Salad and pasta",
+            "value": 500,
+            "unit": "grams",
+            "carbonImpact": 0.8
+        },
+        {
+            "userId": "2",
+            "timestamp": "2026-04-11T19:00:00Z",
+            "category": "Food",
+            "activityType": "Chicken",
+            "description": "Roast chicken dinner",
+            "value": 250,
+            "unit": "grams",
+            "carbonImpact": 1.7
         }
     ]
 }
