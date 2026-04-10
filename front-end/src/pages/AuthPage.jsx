@@ -134,7 +134,7 @@ export default function AuthPage({ onLoginSuccess }) {
     );
 }
 
-// A simple SVG helper component for the abstract shape
+
 function AbstractBlob() {
     return (
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style={{ width: '600px', height: '600px' }}>

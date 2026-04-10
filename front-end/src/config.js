@@ -1,5 +1,5 @@
 const config = {
-    backendUrl: process.env.API_URL,
+    backendUrl: "http://localhost:3060/api",
     geminiKey: process.env.GEMINI_API_KEY
 };
 
