@@ -101,5 +101,6 @@ footprint-logger/
 <img width="1695" height="907" alt="image" src="https://github.com/user-attachments/assets/00ee29be-28d6-44f8-9e4f-f8e589f51207" />
 
 #### Dashboard
-<img width="1409" height="907" alt="image" src="https://github.com/user-attachments/assets/8858273c-2297-4b5c-b2f0-76c39c2d9af5" />
+<img width="1409" height="907" alt="image" src="https://github.com/user-attachments/assets/6437ead9-d6d5-41e8-a126-4cb4f4a6cdcf" />
+
 
