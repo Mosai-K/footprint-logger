@@ -94,5 +94,10 @@ footprint-logger/
 - `POST /api/auth/register` - Register a new user
 - `POST /api/auth/login` - Login user and receive JWT token
 
+#### Landing page
 <img width="1695" height="907" alt="image" src="https://github.com/user-attachments/assets/2591d371-e921-42f8-a68b-bdcedc2d47d0" />
+
+#### Login Page
+<img width="1695" height="907" alt="image" src="https://github.com/user-attachments/assets/00ee29be-28d6-44f8-9e4f-f8e589f51207" />
+
 
