@@ -72,7 +72,7 @@ function App() {
                     {activeTab === 'dashboard' && <DashboardStats logs={logs} communityAvg={communityAvg} />}
                     {activeTab === 'log' && <ActivityLogger user={user} onLogAdded={() => fetchLogs(user.id)} />}
 
-                    {activeTab === 'ai' && <AIInsights logs={logs} />}
+                    {activeTab === 'insights' && <AIInsights logs={logs} />}
                 </DashboardWrapper>
             )}
         </div>

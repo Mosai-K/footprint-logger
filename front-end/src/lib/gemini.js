@@ -4,26 +4,22 @@ import config from '../config';
 const genAI = new GoogleGenerativeAI(config.geminiKey);
 
 export const generateInsights = async (logs) => {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    try {
 
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
 
-    const summary = logs.map(l =>
-        `- ${l.activityType}: ${l.value}${l.unit} (${(l.co2 || l.carbonImpact).toFixed(2)}kg)`
-    ).join('\n');
+        const summary = logs.length > 0
+            ? logs.map(l => `- ${l.activityType}: ${l.value}${l.unit}`).join('\n')
+            : "No logs yet.";
 
-    const prompt = `
-    You are an eco-friendly AI sustainability consultant for the app "EcoTrack".
-    Based on the following user activity logs, provide:
-    1. A brief encouraging summary of their footprint.
-    2. Two specific, actionable tips to reduce their highest impact category.
-    3. One "fun fact" about carbon reduction related to their activities.
+        const prompt = `Act as a sustainability expert. Analyze these logs and provide 3 tips: ${summary}`;
 
-    User Logs:
-    ${summary || "No activities logged yet."}
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        return response.text();
+    } catch (error) {
+        console.error("Gemini API Detail Error:", error);
 
-    Format the response in clean Markdown with bold headers. Keep it under 150 words.
-  `;
-
-    const result = await model.generateContent(prompt);
-    return result.response.text();
+        throw new Error(error.message || "Failed to generate insights");
+    }
 };
