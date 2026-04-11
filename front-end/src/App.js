@@ -4,6 +4,7 @@ import AuthPage from './pages/AuthPage.jsx';
 import DashboardWrapper from './components/DashboardWrapper';
 import DashboardStats from './components/DashboardStats';
 import ActivityLogger from './components/ActivityLogger';
+import AIInsights from './components/Insights';
 import { api } from './services/api';
 import { useCallback } from 'react';
 
@@ -71,13 +72,7 @@ function App() {
                     {activeTab === 'dashboard' && <DashboardStats logs={logs} communityAvg={communityAvg} />}
                     {activeTab === 'log' && <ActivityLogger user={user} onLogAdded={() => fetchLogs(user.id)} />}
 
-                    {activeTab === 'insights' && (
-                        <div className="text-center py-5 border rounded-4 bg-white p-5">
-                            <i className="bi bi-robot text-success display-4"></i>
-                            <h3 className="fw-bold mt-3">AI Insights Engine</h3>
-                            <p className="text-muted">Gemini AI analysis will appear here.</p>
-                        </div>
-                    )}
+                    {activeTab === 'insights' && <AIInsights logs={logs} />}
                 </DashboardWrapper>
             )}
         </div>
